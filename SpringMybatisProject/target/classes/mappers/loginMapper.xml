@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace ="mappers.LoginMapper"> <!-- file명은 상관없고  name명이 같아야 한다  -->
+
+<select id="login" parameterType="string" resultType="Model.AuthInfoDTO" > 
+	select MEM_id userId, MEM_PW userPw, MEM_EMAIL userEmail, 1 grade
+	from member
+	where MEM_ID = #{userId}
+	union
+	select EMP_USERID,EMP_PW,EMAIL,EMPLOYEE_ID
+	from employees
+	where EMP_USERID = #{userId}
+<!--밑의 select절의 헤딩네임은 위의 헤딩네임을 따른다  -->
+</select>
+
+
+
+
+
+</mapper>
