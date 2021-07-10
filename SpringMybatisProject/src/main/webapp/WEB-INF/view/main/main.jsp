@@ -43,15 +43,17 @@
 <c:if test="${!empty authInfo }">
 	<!-- 일반사용자 -->
 	
-		<a href ="my/myPage">마이페이지</a>
+		<a href ="my/myPage">회원마이페이지</a>
 
 	<!-- 직원전용 -->
 	
-		<a href="emp/empList">직원 리스트</a>
-		<a href="mem/memList">회원리스트</a>
-	
-
+		<a href="goods/goodsList">상품리스트</a>
 		<a href="login/logout">로그아웃</a>
+		<!-- 관리자전용  -->
+			<a href="myEmp/empMyPage">직원마이페이지</a>
+			<a href="emp/empList">직원 리스트</a>
+			<a href="mem/memList">회원리스트</a>
+
 </c:if>
 
 </body>

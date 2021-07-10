@@ -10,8 +10,13 @@
 	<bean id="memberJoinService" class="service.member.MemberJoinService"></bean>
 	<bean id="memberRepository" class="repository.MemberRepository"></bean>
 	
+	<bean id="memberEmailCkService" class="service.member.MemberEmailCkService"></bean>
+	
 	<bean class="controller.member.MemberMyPageController"></bean>
 	<bean id="memberInfoService" class="service.member.MemberInfoService"></bean>
+	<bean id="memDropActionService" class="service.member.MemDropActionService"></bean>
+	<bean class="service.member.MemberConfirmService"></bean>
+	<bean class="service.member.MemberMyPwChangeService"></bean>
 	
 	
 	<bean class="controller.member.MemberInfoController"></bean>

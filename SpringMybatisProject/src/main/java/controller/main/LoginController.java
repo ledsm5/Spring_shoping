@@ -20,14 +20,10 @@ public class LoginController {
 	
 	@RequestMapping("login/logout")
 	public String logout(HttpSession session) {
-		
 		session.invalidate();
 		return "redirect:/";
 		
 	}
-	
-	
-	
 	
 	
 	@RequestMapping(value = "login" , method = RequestMethod.GET) //get 방식일때는 이친구가

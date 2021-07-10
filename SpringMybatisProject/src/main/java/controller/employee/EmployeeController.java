@@ -54,7 +54,7 @@ public class EmployeeController {
 	}
 	
 	@RequestMapping("empModify")
-	public String empModify(@RequestParam(value="empId")String empId, Model model){
+	public String empModify(@RequestParam(value="empId")String empId, Model model){ //value 값은 쿼리스트링 을의미 
 		employeeInfoService.empInfo(empId,model);
 		return "employee/employeeModify";
 	}

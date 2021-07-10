@@ -14,7 +14,7 @@ public class MemberPasswordValidator implements Validator{
 	}
 	
 	
-	public void validator(Object target, Errors errors) {
+	public void validate(Object target, Errors errors) {
 		MemberCommand regReg = (MemberCommand) target;
 		ValidationUtils.rejectIfEmpty(errors, "oldPw","required");
 		ValidationUtils.rejectIfEmpty(errors, "memPw", "required");

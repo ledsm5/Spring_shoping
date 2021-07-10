@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import Model.AuthInfoDTO;
 import command.MemberCommand;
 import service.main.LoginService;
+import service.member.MemberEmailCkService;
 import service.member.MemberJoinService;
 import validator.MemberCommandValidator;
 
@@ -22,6 +23,19 @@ public class MemberController {
 	
 	@Autowired
 	MemberJoinService memberJoinService;
+	@Autowired
+	MemberEmailCkService memberEmailCkService;
+	
+	
+	@RequestMapping("memberMail")
+	public String memberMail(@RequestParam(value="num")String num, @RequestParam(value="receiver") String receiver) {
+		int i = memberEmailCkService.emailCk(receiver,num);
+		if( i > 0) {
+			return "member/success";
+		}else {
+			return "member/fail";
+		}
+	}
 	
 	
 	
@@ -39,10 +53,8 @@ public class MemberController {
 			return "member/memberForm";
 		}
 		memberJoinService.memJoin(memberCommand);
-		return "main/main";
+		return "redirect:/";
 	}
-	
-	
 	
 	
 	@RequestMapping("agree")

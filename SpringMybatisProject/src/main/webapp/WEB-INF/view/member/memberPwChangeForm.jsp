@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form:form action="changeMyPwAction" name="frm" method="post" id = "frm" >
+<form:form action="changeMyPwAction" name="frm" method="post" id = "frm" modelAttribute="memberCommand" >
 현재 비밀번호 : <form:password path="oldPw" />
 			<form:errors path="oldPw"/><br />
 변경 비밀번호 : <input type="password" name="memPw" />

@@ -15,6 +15,26 @@ public class MemberRepository {
 	String statement;
 	
 	
+	
+	
+	public void memPwChange(MemberDTO dto) {
+		statement=namespace+".memPwChange";
+		int i= sqlSession.update(statement,dto);
+		System.out.println(i + "개 비번이 수정되었습니다");
+	}
+	
+	
+	public void memDrop(String memId) {
+		statement=namespace+".memberDropOut";
+		int i= sqlSession.delete(statement,memId);
+		System.out.println(i + "개가 삭제되었습니다");
+	}
+	public int updateCkok(MemberDTO dto) {
+		statement= namespace + ".updateCkok";
+		return sqlSession.update(statement,dto);
+		
+	}
+	
 	public void memDelete(String memId) {
 		statement = namespace + ".memDel";
 		int i =sqlSession.delete(statement,memId);

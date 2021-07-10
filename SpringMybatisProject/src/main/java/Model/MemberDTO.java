@@ -16,7 +16,14 @@ public class MemberDTO {
 	String memGender;
 	String memAccount;
 	String memEmailCk;
+	String ckok;
 	
+	public String getCkok() {
+		return ckok;
+	}
+	public void setCkok(String ckok) {
+		this.ckok = ckok;
+	}
 	public String getMemPwCon() {
 		return memPwCon;
 	}

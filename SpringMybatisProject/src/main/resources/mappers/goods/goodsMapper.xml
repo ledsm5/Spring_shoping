@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.GoodsMapper">
+
+
+
+<select id="goodsList" resultType="gd">
+	select  PROD_NUM prodNum, PROD_NAME prodName, PROD_PRICE prodPrice,
+		PROD_IMAGE prodImage, PROD_DETAIL prodDetail, 
+		PROD_CAPACITY prodCapacity, PROD_SUPPLYER prodSupplyer, 
+		PROD_DEL_FEE prodDelFee, RECOMMAND recommand, 
+		EMPLOYEE_ID employeeId, CTGR ctgr from products
+</select>
+
+
+<insert id="goodsRegist" parameterType="gd">
+	insert into products (PROD_NUM, PROD_NAME,PROD_PRICE,PROD_IMAGE,PROD_DETAIL,PROD_CAPACITY,
+	PROD_SUPPLYER,PROD_DEL_FEE,RECOMMAND,EMPLOYEE_ID,CTGR)
+	values(#{goodsNum},#{prodName},#{prodPrice},#{prodImage},#{prodDetail},#{prodCapacity},
+	#{prodSupplyer},#{prodDelFee},#{recommand},#{employeeId},#{ctgr})
+</insert>
+
+
+
+<select id="goodsNum" resultType="int">
+	select prod_seq.nextval from dual
+</select>
+ 
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

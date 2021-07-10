@@ -11,6 +11,27 @@
 </sql>
 
 
+<update id="empPwChange" parameterType="Model.EmployeeDTO">
+	update employees
+	set EMP_PW = #{empPw}
+	where EMP_USERID = #{empUserid} 
+</update>
+
+
+
+<update id="memMyMod" parameterType="Model.EmployeeDTO">
+	update employees
+	set Job_id = #{jobId},PH_NUMBER = #{phNumber}, OFFICE_NUMBER=#{officeNumber}, EMAIL= #{email}, EMP_ADDRESS= #{empAddress}
+	where EMP_USERID= #{empUserid}
+</update>
+
+
+
+
+<select id="empMyList" parameterType="string" resultType="Model.EmployeeDTO">
+	select <include refid="baseColumn"></include> from employees
+	where EMP_USERID = #{empId}
+</select>
 
 
 <delete id="empDelete" parameterType="string">

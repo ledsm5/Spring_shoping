@@ -20,7 +20,19 @@ public class EmployeeCommand {
 	String officeNumber;
 	String email;
 	String empAddress;
+	String oldPw;
 	
+	
+	public String getOldPw() {
+		return oldPw;
+	}
+
+
+	public void setOldPw(String oldPw) {
+		this.oldPw = oldPw;
+	}
+
+
 	//유효성 검사 서버단에서 하는 추세 ==> 서버에서 하는 코드 
 	public boolean isEmpPwEqualsEmpPwCon() {
 		return empPw.equals(empPwCon);		

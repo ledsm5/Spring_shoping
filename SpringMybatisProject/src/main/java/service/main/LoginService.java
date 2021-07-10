@@ -36,6 +36,4 @@ public class LoginService {
 		AuthInfoDTO authInfo= loginRepository.login(userId); 
 		return authInfo;
 	}
-	
-	
 }

@@ -15,9 +15,23 @@ public class EmployeeRepository {
 	String statement;
 	
 	
+	public void empPwChange(EmployeeDTO dto) {
+		statement = namespace + ".empPwChange";
+		int i = sqlSession.update(statement,dto);
+		System.out.println(i + "개 비번이 수정되었습니다 ");
+	}
 	
+	public void empMyMod(EmployeeDTO dto ) {
+		statement=namespace+ ".memMyMod";
+		int i = sqlSession.update(statement,dto);
+		System.out.println(i+"개가 수정되었습니다");
+	}
 	
-	
+	public EmployeeDTO empMyList(String empId) {
+		statement = namespace + ".empMyList";
+		return sqlSession.selectOne(statement,empId);
+		
+	}
 	
 	public void empDelete(String empId) {
 		statement = namespace + ".empDelete";

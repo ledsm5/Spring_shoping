@@ -4,6 +4,25 @@
 <mapper namespace="mappers.memberMapper">
 
 
+
+<update id="memPwChange" parameterType="Model.MemberDTO">
+	update member
+	set MEM_PW = #{memPw}
+	where MEM_id = #{memId}
+</update>
+
+
+<delete id="memberDropOut" parameterType="string">
+ 	delete from member
+	where mem_id = #{memId}
+</delete>
+
+<update id="updateCkok" parameterType="Model.MemberDTO">
+	update member
+	set ckok = #{ckok}
+	where mem_email = #{memEmail} and ckok is null
+</update>
+
 <delete id="memDel" parameterType="string">
 	delete from member
 	where mem_id = #{mem_id} 
