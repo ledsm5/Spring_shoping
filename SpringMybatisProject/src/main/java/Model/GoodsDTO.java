@@ -3,7 +3,7 @@ package Model;
 
 public class GoodsDTO {
 	String ctgr;
-	Long goodsNum;
+	Long prodNum;
 	String prodName;
 	Long prodPrice;
 	String prodCapacity;
@@ -26,11 +26,12 @@ public class GoodsDTO {
 	public void setCtgr(String ctgr) {
 		this.ctgr = ctgr;
 	}
-	public Long getGoodsNum() {
-		return goodsNum;
+
+	public Long getProdNum() {
+		return prodNum;
 	}
-	public void setGoodsNum(Long goodsNum) {
-		this.goodsNum = goodsNum;
+	public void setProdNum(Long prodNum) {
+		this.prodNum = prodNum;
 	}
 	public String getProdName() {
 		return prodName;

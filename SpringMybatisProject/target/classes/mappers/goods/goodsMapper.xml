@@ -4,6 +4,55 @@
 <mapper namespace="mappers.GoodsMapper">
 
 
+<!-- 아이디는 프라이머리키  -->
+<!-- result는 일반컬럼들  -->
+<resultMap type="Model.GoodsDTO" id="baseResult">
+	<id column="PROD_NUM" jdbcType="BIGINT" property="prodNum"/>
+	<result column="PROD_NAME" jdbcType="VARCHAR" property="prodName"/>
+	<result column="PROD_PRICE" jdbcType="BIGINT" property="prodPrice"/>
+	<result column="PROD_IMAGE" jdbcType="VARCHAR" property="prodImage"/>
+	<result column="PROD_DETAIL" jdbcType="VARCHAR" property="prodDetail"/>
+	<result column="PROD_CAPACITY" jdbcType="BIGINT" property="prodCapacity"/>
+	<result column="PROD_SUPPLYER" jdbcType="VARCHAR" property="prodSupplyer"/>
+	<result column="PROD_DEL_FEE" jdbcType="BIGINT" property="prodDelFee"/>
+	<result column="RECOMMAND" jdbcType="VARCHAR" property="recommand"/>
+	<result column="EMPLOYEE_ID" jdbcType="BIGINT" property="employeeId"/>
+	<result column="CTGR" jdbcType="VARCHAR" property="ctgr"/>
+</resultMap>
+
+
+
+
+
+
+
+
+
+<delete id="goodsDel" parameterType="string">
+	delete from products
+	where prod_num = #{prodNum}
+
+</delete>
+
+<update id="goodsModify" parameterType="gd">
+
+	update products
+	set     PROD_NAME = #{prodName}, PROD_PRICE = #{prodPrice},
+			 PROD_DETAIL = #{prodDetail}, 
+			PROD_CAPACITY = #{prodCapacity}, PROD_SUPPLYER = #{prodSupplyer} , 
+			PROD_DEL_FEE = #{prodDelFee}, RECOMMAND = #{recommand}, 
+			 CTGR = #{ctgr},PROD_IMAGE = #{prodImage}
+			where prod_num = #{prodNum}
+</update>
+
+<select id="goodsDetail"  parameterType="string" resultMap="baseResult">
+	select  PROD_NUM , PROD_NAME , PROD_PRICE ,
+			PROD_IMAGE, PROD_DETAIL, 
+			PROD_CAPACITY, PROD_SUPPLYER , 
+			PROD_DEL_FEE , RECOMMAND , 
+			EMPLOYEE_ID , CTGR from products
+	where prod_num= #{prodNum}
+</select>
 
 <select id="goodsList" resultType="gd">
 	select  PROD_NUM prodNum, PROD_NAME prodName, PROD_PRICE prodPrice,
@@ -15,10 +64,15 @@
 
 
 <insert id="goodsRegist" parameterType="gd">
-	insert into products (PROD_NUM, PROD_NAME,PROD_PRICE,PROD_IMAGE,PROD_DETAIL,PROD_CAPACITY,
-	PROD_SUPPLYER,PROD_DEL_FEE,RECOMMAND,EMPLOYEE_ID,CTGR)
-	values(#{goodsNum},#{prodName},#{prodPrice},#{prodImage},#{prodDetail},#{prodCapacity},
-	#{prodSupplyer},#{prodDelFee},#{recommand},#{employeeId},#{ctgr})
+	insert into products(PROD_NUM, PROD_NAME, PROD_PRICE, PROD_DETAIL,
+	PROD_CAPACITY, PROD_SUPPLYER, PROD_DEL_FEE, RECOMMAND, 
+	EMPLOYEE_ID, CTGR, PROD_IMAGE)
+	values(#{prodNum},#{prodName},#{prodPrice},#{prodDetail},
+	#{prodCapacity},#{prodSupplyer},#{prodDelFee},#{recommand},
+	#{employeeId},#{ctgr},
+	<if test ="prodImage != null"> #{prodImage}</if>
+	<if test="prodImage == null"> null</if>
+	)
 </insert>
 
 
@@ -27,15 +81,5 @@
 	select prod_seq.nextval from dual
 </select>
  
-
-
-
-
-
-
-
-
-
-
 
 </mapper>

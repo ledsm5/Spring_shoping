@@ -21,16 +21,16 @@
 			<th>가격</th>
 			<th>배송비</th>
 		</tr>
-			<c:forEach items="${lists }" var="dto">
+			<c:forEach items="${lists33 }" var="dto">
 		<tr>
-			<td><a href="prodDetail?${dto.goodsNum }">${dto.goodsNum }</a></td>       
+			<td><a href="goodsDetail?prodNum=${dto.prodNum }">${dto.prodNum }</a></td>       
 			<td>${dto.ctgr }</td>
 			<td>${dto.prodName }</td>
 			<td>가격</td>		
 			<td>${dto.prodDelFee }</td>
 		</tr>
 			</c:forEach>
-		<tr><td><input type="button" value="홈으로" onclick="javascript:location.href='main.sm"></td></tr>
+		<tr><td><input type="button" value="홈으로" onclick="javascript:location.href='../main'"></td></tr>
 	</table>
 	</form>
 	

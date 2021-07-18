@@ -11,6 +11,6 @@ public class GoodsNumberService {
 	public void goodsNum(Model model) {
 		
 		int goodsNum =goodsRepository.goodsNum();
-		model.addAttribute("goodsNum",goodsNum);
+		model.addAttribute("prodNum",goodsNum);
 	}
 }

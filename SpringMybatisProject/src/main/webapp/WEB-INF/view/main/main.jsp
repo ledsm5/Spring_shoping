@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,6 +45,7 @@
 	<!-- 일반사용자 -->
 	
 		<a href ="my/myPage">회원마이페이지</a>
+		<a href ="cart/orderList">주문내역</a>
 
 	<!-- 직원전용 -->
 	
@@ -53,8 +55,36 @@
 			<a href="myEmp/empMyPage">직원마이페이지</a>
 			<a href="emp/empList">직원 리스트</a>
 			<a href="mem/memList">회원리스트</a>
-
+			<a href="ajaxTest">에이작스</a>
+			<a href="ajaxTest2">에이작스2</a>
+			<a href="cart/cartList">장바구니</a>
 </c:if>
 
+
+
+
+<table>
+<tr><td>아 좀 진짜 지랄하지마</td></tr>
+		
+<tr>
+<c:forEach items="${lists33 }" var="dto" >
+	<td width="200" height="200" >
+		<a href="gdView/goodsView?prodNum=${dto.prodNum }">
+		<c:if test="${dto.prodImage != null }">
+		<img width="200" height="200" src="goods/upload/${dto.prodImage.split(',')[0] }" /><br />
+		</c:if>
+		<c:if test="${dto.prodImage == null }">
+		
+		</c:if>
+		${dto.prodName }<br />
+	 	<fmt:formatNumber value="${dto.prodPrice }" type="currency"/>
+	 	</a> 
+	</td>
+	<c:if test="${cnt.count % 3 == 0 }">
+		</tr><tr>
+	</c:if>
+</c:forEach>
+</tr>
+</table>
 </body>
 </html>

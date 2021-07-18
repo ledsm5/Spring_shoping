@@ -82,7 +82,6 @@ public class EmployeeController {
 	@RequestMapping(value="empJoin" , method=RequestMethod.POST)// 컨트롤러 맨밑에 doGet doPost 의역활   jsp할때는 get post한번에함 
 	public String empJoin(EmployeeCommand employeeCommand,Errors errors,Model model) { //model 날릴수만있다    (request)와같다 
 		new EmployeeCommandValidator().validate(employeeCommand, errors);
-		
 		if(errors.hasErrors()) {
 			return "employee/employeeForm";
 		}

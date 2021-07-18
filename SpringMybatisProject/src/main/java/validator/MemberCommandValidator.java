@@ -39,7 +39,5 @@ public class MemberCommandValidator implements Validator{
 		ValidationUtils.rejectIfEmpty(errors, "postNumber", "required");
 		ValidationUtils.rejectIfEmpty(errors, "detailAdd", "required");
 		
-		
-		
 	}
 }

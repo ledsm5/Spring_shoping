@@ -15,6 +15,7 @@ import service.employee.EmpMyPwChangeAction;
 import service.employee.EmpPwChangeConfirmAction;
 import service.employee.EmployeeMyListService;
 import service.employee.EmployeeMyModifyService;
+import validator.EmployeeCommandValidator;
 import validator.EmployeePasswordValidator;
 
 @Controller
@@ -63,6 +64,11 @@ public class EmployeeMyPageController {
 
 	@RequestMapping("empModifyAction")
 	public String employeeModifyAction(EmployeeCommand employeeCommand,Errors errors ,HttpSession session) {
+		new EmployeeCommandValidator().validate(employeeCommand, errors);
+		if(errors.hasErrors()) {
+			return "employee/empMyModifyForm"; 
+		}
+		
 		employeeMyModifyService.empMyModAction(employeeCommand,errors,session);
 		if(errors.hasErrors()) {
 			return "employee/empMyModifyForm";
@@ -75,7 +81,7 @@ public class EmployeeMyPageController {
 		return "employee/empMyModifyForm";
 	}
 	@RequestMapping("empDetail")
-	public String employeeMyDetail(Model model,HttpSession session) {
+	public String employeeMyDetail(Model model,HttpSession session ,@ModelAttribute EmployeeCommand employeeCommand) {
 		employeeMyListService.empMyListPrint(model,session);
 		return "employee/empMyDetail";
 	}

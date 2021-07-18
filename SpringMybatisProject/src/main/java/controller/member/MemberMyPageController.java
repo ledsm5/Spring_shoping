@@ -15,6 +15,7 @@ import service.member.MemDropActionService;
 import service.member.MemberConfirmService;
 import service.member.MemberInfoService;
 import service.member.MemberMyPwChangeService;
+import validator.MemberCommandValidator;
 import validator.MemberPasswordValidator;
 
 @Controller
@@ -72,8 +73,10 @@ public class MemberMyPageController {
 	
 	
 	//=============================================================
+	
+	
 	@RequestMapping("memDetail")
-	public String memDetail(HttpSession session , Model model) {
+	public String memDetail(HttpSession session, Model model) {
 		memberInfoService.memInfo(model,session);
 		return "member/memberDetail";
 	}

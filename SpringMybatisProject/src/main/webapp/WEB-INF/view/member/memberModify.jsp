@@ -2,6 +2,7 @@
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,7 +58,7 @@
 </script>
 </head>
 <body>
-<form action="../memModifyOk" method="post" name="frm"> 
+<form:form action="../memModifyOk" method="post" name="frm" modelAttribute="memberCommand"> 
 <input type = "hidden" name= "memId" value="${lists[0].memId }">
  <!-- command에서 데이트포멧줘서 무조건 갑을 줘야한다  -->
 	<table border = 1 align="center">
@@ -72,19 +73,23 @@
 		<tr>
 			<td>우편번호</td>
 			<td><input type="text" name="postNumber" id="sample4_postcode" value="${lists[0].postNumber }"></td>   <!-- id를 써줘야 api사용가능   -->
+			<form:errors path="postNumber"></form:errors>
 		</tr>
 		<tr>
 			<td>주소</td>
 			<td><input type="text" name="memAddress" id="sample4_roadAddress" size="30" value="${lists[0].memAddress }"><a href="javascript:sample4_execDaumPostcode();" >주소 검색</a></td>
+			<form:errors path="memAddress"></form:errors>
 		</tr>
 		<tr><td>상세주소</td>
 			<td><input type="text" name="detailAdd" value ="${lists.get(0).detailAdd }"></td></tr>
+			<form:errors path="detailAdd"></form:errors>
 		<tr><td>연락처</td>
 			<td><input type="text" name="memPhone" value="${lists.get(0).memPhone }"></td></tr>
+			<form:errors path="memPhone"></form:errors>
 		<tr><td>이메일</td>
 			<td><input type="text" name="memEmail" value ="${lists.get(0).memEmail }"></td></tr>
+			<form:errors path="memEmail"></form:errors>
 			
-		
 		<tr><td>생년월일</td>
 			<td><fmt:formatDate value="${lists[0].memBirth}" />
 			</td>
@@ -101,6 +106,7 @@
 		<tr>
 			<td>계좌번호</td>
 			<td><input type="text" name="memAccount" value="${lists.get(0).memAccount }"></td>
+			<form:errors path="memAccount"></form:errors>
 		</tr>
 		<tr>
 			<td>이메일 수신여부</td>
@@ -117,6 +123,6 @@
 			</td>
 		</tr>
 	</table>
-</form>
+</form:form>
 </body>
 </html>

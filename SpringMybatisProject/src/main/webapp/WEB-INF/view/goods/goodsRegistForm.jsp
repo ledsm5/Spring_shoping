@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
+    <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="goodsRegistAction" method="post" name="frm" enctype="multipart/form-data" > <!-- 기본설정 되있는데  multipart로 바꾸면 파일을 날릴수있다  -->
+	<form:form action="goodsRegistAction" method="post" name="frm" enctype="multipart/form-data" modelAttribute="goodsCommand" > <!-- 기본설정 되있는데  multipart로 바꾸면 파일을 날릴수있다  -->
 		<table border=1>
 			<tr>
 				<th>상품번호</th>
@@ -18,12 +19,13 @@
 					<option value="shoes">신발</option>
 					<option value="etc">기타</option>
 				</select>
-				<input type ="text" name="goodsNum" value="${goodsNum }" readonly="readonly">
+				<input type ="text" name="prodNum" value="${prodNum }" readonly="readonly">
 				</td>
 			</tr>
 			<tr>
 				<th>상품명</th>
-				<td><input type ="text" name="prodName"></td>
+				<td><input type ="text" name="prodName">
+				<form:errors path="prodName"></form:errors> </td>
 			</tr>
 			<tr>
 				<th>가격</th>
@@ -38,9 +40,10 @@
 				<td><input type ="text" name="prodSupplyer"></td>
 			</tr>
 			<tr>
-				<th>별점</th>
-				<td><input type ="number" name="prodDelFee" min="0" max="5" step="1"></td> <!-- 별뜨게 하기   -->
-			</tr>
+				<th>배송비</th>
+				<td><input type ="text" name="prodDelFee" ></td> <!-- 별뜨게 하기   -->
+		       <!--	<td><input type ="number" name="prodDelFee" min="0" max="5" step="1"></td> 별뜨게 하기  -->	
+		</tr>
 			<tr>
 				<th>추천여부</th>
 				<td>
@@ -55,7 +58,7 @@
 			<tr>
 				<th>파일</th>
 				<td>
-					<input type="file" name="prodImage1" multiple="multiple"> <br>
+					<input type="file" name="prodImage" multiple="multiple"> <br>
 				</td>
 			</tr>
 			<tr>
@@ -66,6 +69,6 @@
 				</td>
 			</tr>
 		</table>	
-	</form>
+	</form:form>
 </body>
 </html>

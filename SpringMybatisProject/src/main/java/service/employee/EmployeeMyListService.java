@@ -18,7 +18,7 @@ public class EmployeeMyListService {
 		String empId = authInfo.getUserId();
 		
 		EmployeeDTO dto = employeeRepository.empMyList(empId);
-		model.addAttribute("emp", dto);
+		model.addAttribute("employeeCommand", dto);
 				
 	}
 }

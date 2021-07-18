@@ -8,16 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	사원번호 : ${emp.employeeId }<br />
-	아이디: ${emp.empUserid }<br />
-	이름 : ${emp.empName }<br />
-	입사일: <fmt:formatDate value="${emp.hireDate }"/><br /> 
-	직무 : ${emp.jobId }<br />
-	연락처 : ${emp.phNumber }<br />
-	사무실번호 :${emp.officeNumber }<br/>
-	이메일: ${emp.email }<br />
-	주소 : ${emp.empAddress }<br />
-<a href="empMyModify?empId=${emp.employeeId }">수정</a> | 
+	사원번호 : ${employeeCommand.employeeId }<br />
+	아이디: ${employeeCommand.empUserid }<br />
+	이름 : ${employeeCommand.empName }<br />
+	입사일: <fmt:formatDate value="${employeeCommand.hireDate }"/><br /> 
+	직무 : ${employeeCommand.jobId }<br />
+	연락처 : ${employeeCommand.phNumber }<br />
+	사무실번호 :${employeeCommand.officeNumber }<br/>
+	이메일: ${employeeCommand.email }<br />
+	주소 : ${employeeCommand.empAddress }<br />
+<a href="empMyModify?empId=${employeeCommand.employeeId }">수정</a> | 
 <a href="empMyPage" >뒤로가기</a>  
 </body>
 </html>

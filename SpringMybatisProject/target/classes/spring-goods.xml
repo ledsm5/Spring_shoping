@@ -11,4 +11,11 @@
 	<bean class="repository.GoodsRepository"></bean>
 	<bean class="service.goods.GoodsRegistService"></bean> <!-- 서비스에서 클래스를 맞춰서쓴다면 id에 안써도 된다 . -->
 	<bean class="service.goods.GoodsListService"></bean>
+	<bean class="service.goods.GoodsDetailService"></bean>
+	<bean class="service.goods.GoodsModifyService"></bean>
+	<bean class="service.goods.GoodsDeleteService"></bean>
+	
+	
+	<bean class="controller.goods.GoodsViewController"></bean>
+	
 </beans>

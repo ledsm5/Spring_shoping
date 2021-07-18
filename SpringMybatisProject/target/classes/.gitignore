@@ -1,6 +1,5 @@
 /controller/
-/command/
-/validator/
 /service/
 /repository/
 /Model/
+/command/

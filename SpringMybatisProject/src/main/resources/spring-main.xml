@@ -12,4 +12,6 @@
 	<bean class="controller.main.LoginController"></bean>
 	
 	<bean id="mailService" class="controller.MailService"></bean>
+	
+	<bean class="controller.ajax.AjaxController"></bean>
 </beans>

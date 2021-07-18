@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.cartMapper">
+
+<resultMap type="Model.GoodsCartDTO" id="goodsCartMap">
+	<association property="goodsDTO" javaType="Model.GoodsDTO">
+		<result column="prod_supplyer" jdbcType="VARCHAR" property="prodSupplyer"></result>
+		<result column="prod_del_fee" jdbcType="BIGINT" property="prodDelFee"></result>
+		<result column="prod_image" jdbcType="VARCHAR" property="prodImage"></result>
+		<result column="prod_name" jdbcType="VARCHAR" property="prodName"></result>
+		<result column="prod_price" jdbcType="BIGINT" property="prodPrice"></result>	
+	</association>
+	<association property="cartDTO" javaType="Model.CartDTO">
+		<id column="prod_num" jdbcType="BIGINT" property="prodNum"></id>	
+		<id column="mem_id" jdbcType="VARCHAR" property="memId"></id>	
+		<result column="cart_price" jdbcType="BIGINT" property="cartPrice"></result>	
+		<result column="cart_qty" jdbcType="BIGINT" property="cartQty"></result>	
+	</association>
+</resultMap>
+
+
+
+<delete id="cartDelete" parameterType="Model.CartDTO">
+	delete from cart
+	where mem_id = #{memId} and prod_num = #{prodNum}
+</delete>
+
+<insert id="purchaseListInsert" parameterType="Model.CartDTO">
+	insert into purchase_List(PURCHASE_NUM,PROD_NUM,PURCHASE_QTY,PURCHASE_PRICE)
+	select #{purchaseNum} , PROD_NUM, CART_QTY, CART_PRICE
+	from cart
+	where mem_id = #{memId} and prod_num = #{prodNum}
+</insert>
+
+<insert id="purchaseInsert" parameterType="Model.PurchaseDTO">
+	insert into purchase
+		(PURCHASE_NUM ,MEM_ID,PURCHASE_TOT_PRICE,PURCHASE_ADDR,PURCHASE_METHOD,
+		PURCAHSE_REQUEST,RECEIVER_NAME,RECEIVER_PHONE,PURCHASE_DATE)
+	values (#{purchaseNum},#{memId},#{purchaseTotPrice},#{purchaseAddr},#{purchaseMethod},#{purchaseRequest},#{receiverName},#{receiverPhone},sysdate)
+</insert>
+
+
+<update id="qtyDecrease" parameterType="Model.CartDTO">
+	update cart
+	set cart_qty = cart_qty - 1, 
+		cart_price = cart_price - #{cartPrice}
+		where mem_id = #{memId} and prod_num = #{prodNum}
+</update>
+
+
+
+<select id="cartList" parameterType="Model.CartDTO" resultMap="goodsCartMap"> <!-- 1대1로 받아올때는 resultMap -->
+	select p.prod_num, prod_supplyer , prod_del_fee, prod_image,
+			prod_name, prod_price, cart_price,cart_qty, mem_id
+	from products p , cart c
+	where p.prod_num = c.prod_num and c.mem_id= #{memId}
+	and p.prod_num = #{prodNum}
+</select>
+
+<select id="memProdNum" parameterType="string" resultType="string">
+	select prod_num from cart
+	where mem_id = #{memId}
+</select>
+
+
+
+<insert id="cartAdd" parameterType="Model.CartDTO">
+	MERGE into cart c1
+	using (select prod_num from products where prod_num = #{prodNum}  ) p1
+	on (c1.prod_num = p1.prod_num and c1.mem_id = #{memId})
+	When MATCHED THEN
+		update set c1.cart_qty = cart_qty + #{cartQty},
+		           c1.cart_price = cart_price + #{cartPrice}
+	When not MATCHED THEN
+		insert (c1.mem_id, c1.prod_num, c1.cart_qty, c1.cart_price)
+		values(#{memId},#{prodNum},#{cartQty},#{cartPrice})
+</insert>
+
+</mapper>

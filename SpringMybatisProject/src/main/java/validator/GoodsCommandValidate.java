@@ -18,7 +18,7 @@ public boolean supports(Class<?> clazz) {
 			ValidationUtils.rejectIfEmpty(errors, "prodDelFee", "required");
 			ValidationUtils.rejectIfEmpty(errors, "recommand", "required");
 			ValidationUtils.rejectIfEmpty(errors, "prodDetail", "required");
-			ValidationUtils.rejectIfEmpty(errors, "prodImage1", "required");
+
 			
 		}
 
