@@ -32,7 +32,7 @@
   			classpath:spring-mail-config.xml
   			classpath:spring-goods.xml
   			classpath:spring-cart.xml
-  			
+  			classpath:spring-review.xml
   		</param-value>
   	</init-param>
   </servlet>
@@ -40,4 +40,17 @@
   	<servlet-name>dispatcher</servlet-name>
   	<url-pattern>/</url-pattern>
   </servlet-mapping>
+  
+  <error-page><!-- 에러 날때 페이지  -->
+  	<error-code>400</error-code>
+  	<location>/error/400.jsp</location>
+  </error-page>
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/error/404.jsp</location>
+  </error-page>
+  <error-page>
+  	<error-code>500</error-code>
+  	<location>/error/500.jsp</location>
+  </error-page>
 </web-app>

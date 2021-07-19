@@ -43,41 +43,42 @@
 <!-- 로그인 되엇을때 -->
 <c:if test="${!empty authInfo }">
 	<!-- 일반사용자 -->
-	
+	<c:if test="${authInfo.grade==1 }">
 		<a href ="my/myPage">회원마이페이지</a>
-		<a href ="cart/orderList">주문내역</a>
-
-	<!-- 직원전용 -->
-	
+		<a href="cart/cartList">장바구니</a>
+		<a href="cart/purchaseList">구매내역</a>
+	</c:if>
+	<!-- 관리자전용 -->
+		<!-- 직원전용  -->
+	<c:if test="${authInfo.grade!=1 }">
+		<a href="myEmp/empMyPage">직원마이페이지</a>
 		<a href="goods/goodsList">상품리스트</a>
-		<a href="login/logout">로그아웃</a>
-		<!-- 관리자전용  -->
-			<a href="myEmp/empMyPage">직원마이페이지</a>
+		<c:if test="${authInfo.userId==1111 }">
 			<a href="emp/empList">직원 리스트</a>
 			<a href="mem/memList">회원리스트</a>
-			<a href="ajaxTest">에이작스</a>
-			<a href="ajaxTest2">에이작스2</a>
-			<a href="cart/cartList">장바구니</a>
+		</c:if>
+	</c:if>
+			<!-- <a href="ajaxTest">에이작스</a>
+			<a href="ajaxTest2">에이작스2</a> -->
+		<a href="login/logout">로그아웃</a>
 </c:if>
-
+<br><br>
 
 
 
 <table>
-<tr><td>아 좀 진짜 지랄하지마</td></tr>
-		
 <tr>
-<c:forEach items="${lists33 }" var="dto" >
+<c:forEach items="${lists33 }" var="dto" varStatus="cnt">
 	<td width="200" height="200" >
 		<a href="gdView/goodsView?prodNum=${dto.prodNum }">
-		<c:if test="${dto.prodImage != null }">
-		<img width="200" height="200" src="goods/upload/${dto.prodImage.split(',')[0] }" /><br />
-		</c:if>
-		<c:if test="${dto.prodImage == null }">
-		
-		</c:if>
-		${dto.prodName }<br />
-	 	<fmt:formatNumber value="${dto.prodPrice }" type="currency"/>
+			<c:if test="${dto.prodImage != null }">
+				<img width="200" height="200" src="goods/upload/${dto.prodImage.split(',')[0] }" /><br />
+			</c:if>
+			<c:if test="${dto.prodImage == null }">
+			
+			</c:if>
+			${dto.prodName }<br />
+		 	<fmt:formatNumber value="${dto.prodPrice }" type="currency"/>
 	 	</a> 
 	</td>
 	<c:if test="${cnt.count % 3 == 0 }">

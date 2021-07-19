@@ -53,7 +53,7 @@ function prodChk(){
 </script>
 </head>
 <body>
-	&nbsp;&nbsp;&nbsp; 당신의 장바구니
+	&nbsp;&nbsp;&nbsp; 당신의 장바구니<br><br>
 <table border=1 width =600 align="center">
 	<form action="goodsBuy" method="post" onsubmit="return goodsCheck();"><!-- get으로 바꿔서 어떤값이 날라가는지 확인할수있다  -->
 		<%-- <% int price=0 %> 와 같음 --%>

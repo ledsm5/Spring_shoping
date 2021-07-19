@@ -13,6 +13,10 @@
 	<bean class="service.cart.CartQtyDecreaseService"></bean>
 	<bean class="service.cart.CartOrderService"></bean>
 	<bean class="service.cart.PaymentActionService"></bean>
+	<bean class="service.cart.PurchaseInsertService"></bean>
+	<bean class="service.cart.PurchaseListPrintService"></bean>
+	
+	
 
 	
 </beans>

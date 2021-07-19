@@ -13,13 +13,13 @@
 	$(function(){
 		$("#cart").click(function(){
 			var cartQty = $("#cartQty").val();
-			var prodNum = ${goodsCommand.prodNum};
+			var prodNum = ${goodsReview.goods.prodNum};
 			$.ajax({
 				type : "post",	
 				url : "<c:url value='/cart/cartAdd' />",
 				dataType : "text",
 				data : {"cartQty":cartQty,"prodNum":prodNum,
-						"prodPrice":${goodsCommand.prodPrice} },
+						"prodPrice":${goodsReview.goods.prodPrice} },
 				// data : "cartQty="+cartQty +"&prodNum="+prodNum
 				success : function(result){
 					if(result.trim() == "1"){// 정상적으로 장바구니에 상품 등록
@@ -30,32 +30,44 @@
 						alert("장바구니에 담기지 않았습니다.\n다시 시도 해주세요.");
 					}
 				}
-			});
 		});
 	});
-				
+});				
 </script>
 </head>
 <body>
 	<h1 style="text-align: center">제품</h1>
 	<table border="1">
 		<tr><td rowspan="5">
-			<img src="../goods/upload/${goodsCommand.prodImage.split(',')[0]}"></td><td>${goodsCommand.prodName }</td>
+			<img src="../goods/upload/${goodsReview.goods.prodImage.split(',')[0]}"></td><td>${goodsReview.goods.prodName }</td>
 		</tr>
-		<tr>                               		 <td>${goodsCommand.prodName }</td></tr>
-		<tr>                               		 <td>${goodsCommand.prodPrice }</td></tr>
-		<tr>                                	<td>${goodsCommand.prodDelFee }</td></tr>
+		<tr>                               		 <td>${goodsReview.goods.prodName }</td></tr>
+		<tr>                               		 <td>${goodsReview.goods.prodPrice }</td></tr>
+		<tr>                                	<td>${goodsReview.goods.prodDelFee }</td></tr>
 		<tr> <td>수량     
 					<input type="number" min="1" step="1" value="1" name="cartQty" id="cartQty"></td></tr>
 		<tr>                              				  <td><button id="cart" >장바구니</button> <button id="buy">바로구매</button></td></tr>
-		<tr><td colspan="2">상세보기 및 이미지 
+		<tr><td colspan="2"><br>상세보기 및 이미지 
 		<p>
-		<c:forTokens items="${goodsCommand.prodImage }" delims="," var="image">
+		<c:forTokens items="${goodsReview.goods.prodImage }" delims="," var="image">
 			<img src="../goods/upload/${image }">
 		</c:forTokens>
 		</p>
 		</td></tr>
-
 	</table>
+	<br><br>
+	
+	리뷰
+	<hr />
+	<c:forEach items="${goodsReview.review }" var="dto">
+		<p>
+			구매일자 : <fmt:formatDate value="${dto.reviewDate }" pattern="yyyy-MM-dd"/> <br />
+			${fn:replace(dto.reviewContent, br , "<br />") }<br />
+			<c:if test="${dto.reviewImg != null}">
+				<img src="../goods/upload/${dto.reviewImg }" />
+			</c:if>
+		<p>
+<c:if test="${dto.memId == null }">   등록된 리뷰가 없습니다</c:if>
+	</c:forEach>
 </body>
 </html>

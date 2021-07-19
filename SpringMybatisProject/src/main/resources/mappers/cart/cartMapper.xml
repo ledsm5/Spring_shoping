@@ -20,6 +20,37 @@
 </resultMap>
 
 
+<select id="purchaseList" parameterType="string" resultType="Model.PurchaseListDTO">
+	select  p1.prod_num prodNum , PROD_SUPPLYER prodSupplyer, prod_name prodName, 
+		prod_image prodImage, 
+ 		PURCHASE_DATE purchaseDate, p2.PURCHASE_NUM purchaseNum, 
+ 		PURCHASE_TOT_PRICE purchaseTotPrice,
+ 		review_content reviewContent, 
+		PAYMENT_APPR_NUM paymentApprNum
+	from products p1,  purchase_list p2, purchase p3, payment p4, review r
+	where p1.prod_num = p2.prod_num
+	and   p2.PURCHASE_NUM = p3.PURCHASE_NUM
+	and   p2.PURCHASE_NUM = p4.PURCHASE_NUM(+)
+	and   p2.PURCHASE_NUM = r.PURCHASE_NUM(+)
+	and   p2.prod_num = r.prod_num(+)
+	and   p3.mem_id = #{memId}
+	order by purchaseNum desc
+</select>
+
+
+
+<sql id="PAYMENTAPPRNUM">
+	select to_char(sysdate,'yyyymmdd') || nvl2(max(PAYMENT_APPR_NUM),substr(max(PAYMENT_APPR_NUM),-6),100000)+1 <!--처음에는 값이없어서 100001로시작  -->
+	from payment														<!-- 다음부터는 max로 payment에서 가장큰값 에다가 1더함  -->
+	where substr(PAYMENT_APPR_NUM,1,8) = to_char(sysdate,'yyyymmdd')	<!-- where 절은  하루가 지날때마다 1로 갱신하기위하여 설정 -->
+</sql>
+
+<insert id="paymentInsert" parameterType="Model.PaymentDTO">
+	insert into payment (PURCHASE_NUM,MEM_ID,PAYMENT_METHOD, PAYMENT_APPR_PRICE,
+					PAYMENT_NUMBER,PAYMENT_APPR_NUM,PAYMENT_APPR_DATE  )
+	values (#{purchaseNum},#{memId},#{paymentMethod},#{paymentApprPrice},#{paymentNumber},
+	(<include refid="PAYMENTAPPRNUM"></include>),sysdate )
+</insert>
 
 <delete id="cartDelete" parameterType="Model.CartDTO">
 	delete from cart
