@@ -50,10 +50,6 @@ public class EmployeeRepository {
 		return sqlSession.selectOne(statement,empId);
 	}
 	
-	public List<EmployeeDTO> empList(){
-		statement = namespace +".empList";
-		return sqlSession.selectList(statement); //selectList ==> list 앙ㄹ아서 만들어놈
-	}
 	
 	public void empInsert(EmployeeDTO dto) {
 	      statement = namespace + ".empInsert";
@@ -65,5 +61,15 @@ public class EmployeeRepository {
 	public String empNo() {
 		statement = namespace + ".empNo";
 		return sqlSession.selectOne(statement);
+	}
+	
+	public Integer count() {
+		statement = namespace + ".count";
+		return sqlSession.selectOne(statement);
+	}
+	
+	public List<EmployeeDTO> empList(EmployeeDTO dto){
+		statement = namespace +".empList";
+		return sqlSession.selectList(statement,dto); //selectList ==> list 앙ㄹ아서 만들어놈
 	}
 }

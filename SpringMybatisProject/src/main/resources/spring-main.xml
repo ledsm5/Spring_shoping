@@ -7,11 +7,21 @@
 			"
 >
 	<bean class="controller.main.MainController"/>
-	<bean id="loginService" class="service.main.LoginService"></bean>
 	<bean id="loginRepository" class="repository.LoginRepository"></bean>
+	<bean id="loginService" class="service.main.LoginService"></bean>
+	<bean class="service.main.SearchIdService"></bean>
+	<bean class="service.main.PwSearchService"></bean>
+	<bean class="service.main.CookieService"></bean>
+	
+	
+	
 	<bean class="controller.main.LoginController"></bean>
 	
-	<bean id="mailService" class="controller.MailService"></bean>
 	
 	<bean class="controller.ajax.AjaxController"></bean>
+	
+	
+	
+	
+
 </beans>

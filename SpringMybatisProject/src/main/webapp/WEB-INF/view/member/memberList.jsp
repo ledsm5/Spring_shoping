@@ -26,6 +26,9 @@
 			<td>${dto.memAddress }</td>
 		</tr>
 		</c:forEach>
+		<tr><td colspan="5">
+			<%@ include file="../include/includePage.jsp" %>
+		</td></tr>
 	</table>
 </body>
 </html>

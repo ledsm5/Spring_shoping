@@ -38,19 +38,20 @@ public class MemberInfoController {
 	
 	@RequestMapping("memMod/{memId}")
 	public String memMod(@PathVariable(value="memId") String memId,Model model) {
-		memberListService.memList(model,memId);
+		memberListService.memList(model,memId,1);
 		return "member/memberModify";
 	}
 	
 	@RequestMapping("memInfo/{memId}")
 	public String memList(@PathVariable(value ="memId") String memId, Model model) {
-		memberListService.memList(model, memId);
+		memberListService.memList(model, memId,1);
 		return "member/memberInfo";
 	}
 	
 	@RequestMapping("memList")
-	public String memList(Model model) {
-		memberListService.memList(model,null);
+	public String memList(@RequestParam(value="page",defaultValue = "1")Integer page,//기본페이지 1
+			Model model) {
+		memberListService.memList(model,null,page);
 		return "member/memberList";
 	}
 	

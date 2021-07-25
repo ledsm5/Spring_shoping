@@ -14,6 +14,9 @@ public class ReviewRepository {
 	String statement;
 	
 	
+	
+	
+	
 	public GoodsReviewDTO goodsReview(String prodNum) {
 		statement = namespace + ".goodsReview";
 		return sqlSession.selectOne(statement,prodNum);

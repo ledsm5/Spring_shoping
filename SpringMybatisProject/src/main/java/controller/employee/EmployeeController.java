@@ -66,8 +66,8 @@ public class EmployeeController {
 	}
 
 	@RequestMapping(value="empList", method=RequestMethod.GET)
-	public String empList(Model model) {
-		employeeListService.empList(model);
+	public String empList(@RequestParam(value="page",defaultValue = "1")Integer page,Model model) {
+		employeeListService.empList(page,model);
 		return "employee/employeeList";
 	}
 	

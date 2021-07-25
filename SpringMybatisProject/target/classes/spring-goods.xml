@@ -15,7 +15,9 @@
 	<bean class="service.goods.GoodsModifyService"></bean>
 	<bean class="service.goods.GoodsDeleteService"></bean>
 	
-	
+	<bean class="controller.goods.GoodsWishController"></bean>
+	<bean class="service.goods.GoodsWishRegistService"></bean>
+		
 	<bean class="controller.goods.GoodsViewController"></bean>
 	
 </beans>

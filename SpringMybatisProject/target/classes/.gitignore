@@ -1,5 +1,4 @@
 /controller/
 /service/
-/repository/
 /Model/
-/interceptor/
+/repository/

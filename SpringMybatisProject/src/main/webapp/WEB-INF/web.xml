@@ -33,6 +33,7 @@
   			classpath:spring-goods.xml
   			classpath:spring-cart.xml
   			classpath:spring-review.xml
+  			classpath:spring-library.xml
   		</param-value>
   	</init-param>
   </servlet>
@@ -41,7 +42,7 @@
   	<url-pattern>/</url-pattern>
   </servlet-mapping>
   
-  <error-page><!-- 에러 날때 페이지  -->
+  <!-- <error-page>에러 날때 페이지 
   	<error-code>400</error-code>
   	<location>/error/400.jsp</location>
   </error-page>
@@ -52,5 +53,5 @@
   <error-page>
   	<error-code>500</error-code>
   	<location>/error/500.jsp</location>
-  </error-page>
+  </error-page> -->
 </web-app>

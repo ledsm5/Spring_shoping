@@ -15,7 +15,6 @@ import service.member.MemDropActionService;
 import service.member.MemberConfirmService;
 import service.member.MemberInfoService;
 import service.member.MemberMyPwChangeService;
-import validator.MemberCommandValidator;
 import validator.MemberPasswordValidator;
 
 @Controller

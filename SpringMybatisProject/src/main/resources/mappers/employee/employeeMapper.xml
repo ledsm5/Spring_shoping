@@ -51,9 +51,6 @@
    	where EMPLOYEE_ID = #{empId}
 </select>
 
-<select id="empList" resultType="Model.EmployeeDTO">
-	 select <include refid = "baseColumn"></include> from employees <!-- 이렇게 쓰면된다 -->
-</select>
 
 <insert id="empInsert" parameterType="Model.EmployeeDTO">  <!-- 아래 파라미터들은 EDTO로부터 받아오는값이다  -->
 	insert into employees(EMPLOYEE_ID,EMP_USERID,EMP_PW,EMP_NAME,HIRE_DATE,JOB_ID,PH_NUMBER,OFFICE_NUMBER,EMAIL,EMP_ADDRESS)
@@ -66,5 +63,21 @@
 </select>
 
 
+
+
+<select id="count" resultType="int">
+	select count(*) from employees
+</select>
+
+<select id="empList" resultType="Model.EmployeeDTO">
+	select rn,  employeeId ,  empUserid, 
+  	  empPw,  empName, hireDate, 
+   	 jobId, phNumber, officeNumber, 
+    	email, empAddress 
+	from (select rownum rn, <include refid = "baseColumn"></include>  
+		from employees ) <!-- 이렇게 쓰면된다 -->
+	where rn between #{startEndPageDTO.startRow}
+			and #{startEndPageDTO.endRow} 
+</select>
 
 </mapper>

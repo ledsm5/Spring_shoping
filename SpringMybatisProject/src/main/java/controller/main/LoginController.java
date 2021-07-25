@@ -1,5 +1,7 @@
 package controller.main;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,12 @@ public class LoginController {
 	
 	
 	@RequestMapping("login/logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session,HttpServletResponse response) {
+		Cookie cookie = new Cookie("autoLogin","");//의미없어서 지움 
+		cookie.setPath("/");
+		cookie.setMaxAge(0);
+		response.addCookie(cookie);
+		
 		session.invalidate();
 		return "redirect:/";
 		
@@ -32,12 +39,12 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value = "login" , method = RequestMethod.POST) // post 방식일때는 이친구가 실행된다 
-	public String login(LoginCommand loginCommand, Errors errors, HttpSession session) {
+	public String login(LoginCommand loginCommand, Errors errors, HttpSession session,HttpServletResponse response) {
 		new LoginCommandValidator().validate(loginCommand,errors);
 		if(errors.hasErrors()) {
 			return "main/main";
 		}
-		loginService.login1(loginCommand, errors, session);
+		loginService.login1(loginCommand, errors, session,response);
 		if(errors.hasErrors()) {
 			return "main/main";
 		}

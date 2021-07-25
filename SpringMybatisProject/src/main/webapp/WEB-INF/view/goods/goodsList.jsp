@@ -9,10 +9,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	상품리스트 페이지 입니다.<br>
+	상품리스트 페이지 입니다. 상품의갯수는 ${count  } 개 입니다<br>
 	<a href="goodsRegist">상품등록</a>
 	<br>
-	<form action="#">
+
 	<table>
 		<tr>
 			<th>상품번호</th>
@@ -30,10 +30,12 @@
 			<td>${dto.prodDelFee }</td>
 		</tr>
 			</c:forEach>
-		<tr><td><input type="button" value="홈으로" onclick="javascript:location.href='../main'"></td></tr>
+		
+		<tr><td colspan="5">
+				<%@ include file="../include/includePage.jsp" %>
+			</td>
+		</tr>
+		
 	</table>
-	</form>
-	
-	
 </body>
 </html>

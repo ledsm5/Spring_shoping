@@ -18,7 +18,12 @@
 
 	<form:form action="login" method="post" name="frm" modelAttribute="loginCommand">
 		<table>
-			<tr><td colspan="3">아이디저장 | 자동로그인</td></tr>
+			<tr>
+				<td colspan="3">
+						아이디저장 <input type="checkbox" name="idStore" <c:if test="${!empty getId }">checked</c:if>>| 
+						자동로그인<input type="checkbox" name="autoLogin"> 
+				</td>
+			</tr>
 			<tr>
 				<td>아이디</td>
 				<td>
@@ -35,13 +40,18 @@
 					<form:errors path="userPw" />
 				</td>
 			</tr>
-			<tr><td>아이디 | 비밀번호 찾기 </td><td><a href="register/agree">회원가입</a></td></tr>
+			<tr><td>
+				<a href="search/searchId">아이디찾기</a> |
+			 	<a href="search/searchPw">비밀번호 찾기 </a>|</td>
+			 	<td><a href="register/agree">회원가입</a></td>
+			</tr>
 		</table>
 	</form:form>
 </c:if>
 
 <!-- 로그인 되엇을때 -->
 <c:if test="${!empty authInfo }">
+		<a href="lib/libList">자료실</a>
 	<!-- 일반사용자 -->
 	<c:if test="${authInfo.grade==1 }">
 		<a href ="my/myPage">회원마이페이지</a>

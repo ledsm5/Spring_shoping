@@ -28,15 +28,14 @@ public class MemberController {
 	
 	
 	@RequestMapping("memberMail")
-	public String memberMail(@RequestParam(value="num")String num, @RequestParam(value="receiver") String receiver) {
-		int i = memberEmailCkService.emailCk(receiver,num);
+	public String memberMail(@RequestParam(value="num")String num, @RequestParam(value="reciver") String reciver) {
+		int i = memberEmailCkService.emailCk(reciver,num);
 		if( i > 0) {
 			return "member/success";
 		}else {
 			return "member/fail";
 		}
 	}
-	
 	
 	
 	@Autowired
@@ -57,11 +56,6 @@ public class MemberController {
 	}
 	
 	
-	@RequestMapping("agree")
-	public String agree() {
-		return "member/agree";
-	}
-	
 	
 	@RequestMapping(value="memRegist",method= RequestMethod.POST)
 	public String memRegist(@RequestParam(value="agree", defaultValue = "false")Boolean agree, @ModelAttribute(value = "memberCommand") MemberCommand memberCommand,Model model) {
@@ -72,6 +66,11 @@ public class MemberController {
 		return "member/memberForm";
 	}
 	
+	
+	@RequestMapping("agree")
+	public String agree() {
+		return "member/agree";
+	}
 	
 	
 	

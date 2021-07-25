@@ -23,7 +23,24 @@
 
 
 
+<select id="wishCount" parameterType="Model.WishDTO" resultType="int">
+	select count(*) from wish
+	where prod_num = #{prodNum} and mem_id = #{memId}
+</select>
 
+
+<insert id="wishAdd" parameterType="Model.WishDTO" useGeneratedKeys="false"> <!-- 인서트 로 merge쓸때 에러 나는거방지  --> <!-- 머지쓸때 insert해도되고 update해도된다 -->
+	MERGE into wish w
+	using (select prod_num from products where prod_num = #{prodNum}) p
+	on (w.prod_num = p.prod_num and w.mem_id = #{memId})
+	When matched then <!-- ck쓰는이유: 오라클에서 머지쓸때 delete 만 사용이 안된다 그래서 아무거나 만들어서 update 앞에해주는거  -->
+		update set w.ck = 1111
+		delete where (w.prod_num = #{prodNum} and w.mem_id = #{memId})
+	When not Matched then 
+		insert (w.prod_num, w.mem_id)
+		values(#{prodNum},#{memId})
+	
+</insert>
 
 
 
@@ -54,13 +71,6 @@
 	where prod_num= #{prodNum}
 </select>
 
-<select id="goodsList" resultType="gd">
-	select  PROD_NUM prodNum, PROD_NAME prodName, PROD_PRICE prodPrice,
-		PROD_IMAGE prodImage, PROD_DETAIL prodDetail, 
-		PROD_CAPACITY prodCapacity, PROD_SUPPLYER prodSupplyer, 
-		PROD_DEL_FEE prodDelFee, RECOMMAND recommand, 
-		EMPLOYEE_ID employeeId, CTGR ctgr from products
-</select>
 
 
 <insert id="goodsRegist" parameterType="gd">
@@ -79,7 +89,34 @@
 
 <select id="goodsNum" resultType="int">
 	select prod_seq.nextval from dual
+	<!-- create SEQUENCE prod_seq
+		start with 10000; -->
 </select>
  
+ 
+ 
+ <!-- List 및  모듈화 -->
+ 
+ <select id="count" resultType="int">
+ 	select count(*) from products
+ </select>
+
+ 
+<select id="goodsList" resultType="gd" parameterType="gd">
+select rn,prodNum,prodName,prodPrice,prodImage,prodDetail,prodCapacity,
+		prodSupplyer,prodDelFee,recommand,employeeId ,ctgr
+	from( select  rownum rn ,PROD_NUM prodNum, PROD_NAME prodName, PROD_PRICE prodPrice,
+			PROD_IMAGE prodImage, PROD_DETAIL prodDetail, 
+			PROD_CAPACITY prodCapacity, PROD_SUPPLYER prodSupplyer, 
+			PROD_DEL_FEE prodDelFee, RECOMMAND recommand, 
+			EMPLOYEE_ID employeeId, CTGR ctgr 
+		from products)
+<where>
+	<if test="startEndPageDTO != null">		<!-- 메인페이지에 상품리스트 출력되는것 댸문에  -->
+		 rn between #{startEndPageDTO.startRow}
+			and #{startEndPageDTO.endRow}
+	</if>		
+</where>
+</select>
 
 </mapper>

@@ -17,6 +17,17 @@ public class MemberDTO {
 	String memAccount;
 	String memEmailCk;
 	String ckok;
+
+	
+	StartEndPageDTO startEndPageDTO;
+	public StartEndPageDTO getStartEndPageDTO() {
+		return startEndPageDTO;
+	}
+	public void setStartEndPageDTO(StartEndPageDTO startEndPageDTO) {
+		this.startEndPageDTO = startEndPageDTO;
+	}
+	
+	
 	
 	public String getCkok() {
 		return ckok;

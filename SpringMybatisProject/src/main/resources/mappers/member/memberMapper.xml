@@ -5,6 +5,17 @@
 
 
 
+
+
+
+
+<select id="searchId" parameterType="Model.MemberDTO" resultType="string">	<!-- 아이디 찾기   -->
+	select MEM_ID memId 
+	from member
+	where mem_phone = #{memPhone} and mem_email = #{memEmail} and mem_name = #{memName}
+</select>
+
+
 <update id="memPwChange" parameterType="Model.MemberDTO">
 	update member
 	set MEM_PW = #{memPw}
@@ -37,13 +48,6 @@
 </update>
 
 
-<select id="memList" parameterType="string" resultType="Model.MemberDTO">
-select MEM_ID memId,MEM_PW memPw,MEM_ADDRESS memAddress,MEM_NAME memName,MEM_PHONE memPhone,MEM_BIRTH memBirth,MEM_GENDER memGender,
- MEM_ACCOUNT memAccount, MEM_EMAIL memEmail, POST_NUMBER postNumber, DETAIL_ADD detailAdd, MEM_EMAIL_CK memEmailCk from member 
-	<if test="value != null"> <!-- value 는 parameterType string 을의미  -->
-		where MEM_ID = #{memId}
-	</if>
-</select>
 
 
 
@@ -63,5 +67,30 @@ select MEM_ID memId,MEM_PW memPw,MEM_ADDRESS memAddress,MEM_NAME memName,MEM_PHO
 </insert>
 
 
+
+
+<select id="listCount" resultType="int">
+	select count(*) from member
+</select>
+
+
+<select id="memList" parameterType="Model.MemberDTO" resultType="Model.MemberDTO">
+select  rn, memId, memPw, memAddress, memName, memPhone, memBirth, memGender,
+        memAccount,  memEmail,  postNumber,  detailAdd,  memEmailCk  
+ from(		
+        select ROWNUM rn,MEM_ID memId,MEM_PW memPw,MEM_ADDRESS memAddress,MEM_NAME memName,MEM_PHONE memPhone,MEM_BIRTH memBirth,MEM_GENDER memGender,
+ 		MEM_ACCOUNT memAccount, MEM_EMAIL memEmail, POST_NUMBER postNumber, DETAIL_ADD detailAdd, MEM_EMAIL_CK memEmailCk 
+ from member 
+ )
+ <trim prefix="where" prefixOverrides="AND | OR"> <!-- where는 고정  -->
+ 	<if test="memId != null">			<!-- 다음에 and나 or있으면 없애라 -->
+ 		memId = #{memId}
+ 	</if>
+ 	<if test="startEndPageDTO != null">
+ 		and rn between #{startEndPageDTO.startRow}
+ 		and #{startEndPageDTO.endRow}
+ 	</if>
+ </trim>
+</select>
 
 </mapper>

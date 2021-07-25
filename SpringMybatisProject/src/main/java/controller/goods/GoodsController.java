@@ -81,8 +81,8 @@ GoodsDeleteService goodsDeleteService;
 		return "goods/goodsRegistForm";
 	}
 	@RequestMapping("goodsList")
-	public String goodsList(Model model) {
-		goodsListService.listPrint(model);
+	public String goodsList(@RequestParam(value="page", defaultValue = "1")Integer page,Model model) {
+		goodsListService.listPrint(model,page);
 		return "goods/goodsList";
 	}
 }

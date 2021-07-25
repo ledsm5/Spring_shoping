@@ -15,13 +15,13 @@
 			var cartQty = $("#cartQty").val();
 			var prodNum = ${goodsReview.goods.prodNum};
 			$.ajax({
-				type : "post",	
-				url : "<c:url value='/cart/cartAdd' />",
-				dataType : "text",
-				data : {"cartQty":cartQty,"prodNum":prodNum,
+				type: "post",	
+				url: "<c:url value='/cart/cartAdd' />",
+				dataType: "text",
+				data: {"cartQty":cartQty,"prodNum":prodNum,
 						"prodPrice":${goodsReview.goods.prodPrice} },
 				// data : "cartQty="+cartQty +"&prodNum="+prodNum
-				success : function(result){
+				success: function(result){
 					if(result.trim() == "1"){// 정상적으로 장바구니에 상품 등록
 						if(confirm("계속쇼핑하시려면 '아니오'를 누르시오")){
 							location.href="<c:url value='/cart/cartList'/>";
@@ -32,12 +32,44 @@
 				}
 		});
 	});
+		
+		$("#wishBtn").click(function(){
+			$.ajax({
+				type: "POST",
+				url: "../wish/goodsWishAdd",
+				data: {"prodNum": "${goodsReviews.goods.prodNum}"},
+				success:function(result){
+					if(result.trim() == "1"){
+						$("#wishBtn").attr("src","../images/돼지.jpg");
+						alert("관심상품이 등록되었습니다.");
+					}else{
+						$("#wishBtn").attr("src","../images/도라에몽.jpeg");
+						alert("관심상품이 해지되었습니다.");
+					}
+				},
+				error: function() {
+					alert('로그아웃 되었습니다 \n 다시 로그인해주세요')
+					location.href= "../main";
+					return
+				}
+			});
+		});
 });				
 </script>
 </head>
 <body>
 	<h1 style="text-align: center">제품</h1>
 	<table border="1">
+		<tr><td colspan="6">
+			관심상품 
+				<c:if test="${num == 0 }">
+					<img alt="사진없지롱~" src="../images/도라에몽.jpeg" id="wishBtn">
+				</c:if>
+				<c:if test="${num == 1 }">
+					<img alt="사진없지롱~" src="../images/돼지.jpg" id="wishBtn">
+				</c:if>
+			</td>
+		</tr>
 		<tr><td rowspan="5">
 			<img src="../goods/upload/${goodsReview.goods.prodImage.split(',')[0]}"></td><td>${goodsReview.goods.prodName }</td>
 		</tr>
@@ -46,7 +78,9 @@
 		<tr>                                	<td>${goodsReview.goods.prodDelFee }</td></tr>
 		<tr> <td>수량     
 					<input type="number" min="1" step="1" value="1" name="cartQty" id="cartQty"></td></tr>
-		<tr>                              				  <td><button id="cart" >장바구니</button> <button id="buy">바로구매</button></td></tr>
+		<tr>                              				  
+						<td><button id="cart" >장바구니</button> <button id="buy">바로구매</button> </td>
+		</tr>
 		<tr><td colspan="2"><br>상세보기 및 이미지 
 		<p>
 		<c:forTokens items="${goodsReview.goods.prodImage }" delims="," var="image">

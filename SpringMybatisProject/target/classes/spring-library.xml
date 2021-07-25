@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			"
+>
+	<bean class="controller.library.LibraryController"></bean>
+	<bean class="repository.LibraryRepository"></bean>
+	<bean class="service.library.LibraryService"></bean>
+	<bean class="service.library.LibListService"></bean>
+	<bean class="service.library.LibraryDetailService"></bean>
+	<bean class="service.library.LibraryModService"></bean>
+	<bean class="service.library.LibraryDelService"></bean>
+	
+	
+</beans>

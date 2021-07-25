@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mappers.LibraryMapper">
+
+
+
+
+<delete id="libDel" parameterType="string">
+	delete from notice
+	where notice_no = #{noticeNo}
+</delete>
+
+
+<update id="libMod" parameterType="Model.LibraryDTO">
+	update notice
+	set notice_sub= #{noticeSub}, notice_con = #{noticeCon}
+	where notice_no = #{noticeNo}
+	
+</update>
+
+
+<select id="libDetail" parameterType="string"  resultType="Model.LibraryDTO">
+	select NOTICE_NO noticeNo, NOTICE_SUB noticeSub, 
+		NOTICE_CON noticeCon,NOTICE_DATE noticeDate,
+		NOTICE_KIND noticeKind, NOTICE_COUNT noticeCount, EMPLOYEE_ID employeeId,
+		NOTICE_FILE noticeFile, notice_org_file noticeOrgFile,notice_file_size noticeFileSize
+	from notice
+	where NOTICE_KIND = '자료실' and notice_no = #{noticeNo}
+</select>
+
+<update id="libCount" parameterType="string">
+	update notice
+	set NOTICE_COUNT = NOTICE_COUNT + 1
+	where NOTICE_NO = #{noticeNo} 
+	and  NOTICE_KIND = '자료실'
+</update>
+
+<select id="libList"  resultType="Model.LibraryDTO">
+	select notice_no noticeNo,notice_sub noticeSub,notice_kind noticeKind,notice_date noticeDate,notice_count noticeCount,
+	notice_con noticeCon,Employee_Id employeeId,notice_file noticeFile from notice
+	where notice_kind='자료실' 
+</select>
+
+	<insert id="libRegist" parameterType="Model.LibraryDTO">
+		insert into notice (NOTICE_NO ,notice_sub,notice_kind,notice_date,notice_count,notice_con ,Employee_Id, 
+				NOTICE_FILE , notice_org_file, notice_file_size)
+		values (prod_seq.nextval ,#{noticeSub},#{noticeKind},sysdate,0,#{noticeCon},#{employeeId},
+		<if test="noticeFile == null">null,null,null</if>
+		<if test="noticeFile != null">
+			#{noticeFile},#{noticeOrgFile},#{noticeFileSize}
+		</if>
+		)
+	</insert>
+	
+</mapper>

@@ -47,7 +47,10 @@
 </head>
 <body>
 	정말 탈퇴 하시겠습니까? <br>
-	<a href="memDropConfirm" class="btn red">Yes</a>
 	<a href="myPage" class="btn blue">plz Give me a chance..ㅠㅠ</a>
+	<form action="memDropConfirm" >
+		<input type="hidden" name="noticeNo" value="${noticeNo }"> 
+		<input type="submit" value="Yes" class="btn red">
+	</form>
 </body>
 </html>
